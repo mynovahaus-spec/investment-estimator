@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Invitation Investment Estimator</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #f7f5f2;
+      font-family: Arial, sans-serif;
+      color: #222;
+    }
+
+    .calculator {
+      max-width: 760px;
+      margin: 50px auto;
+      padding: 40px 24px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-weight: 400;
+      font-size: 38px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .intro {
+      text-align: center;
+      line-height: 1.6;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto 45px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section h2 {
+      font-family: Georgia, serif;
+      font-weight: 400;
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .section-note {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .option {
+      position: relative;
+    }
+
+    .option input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .option label {
+      display: block;
+      padding: 16px;
+      text-align: center;
+      background: #fff;
+      border: 1px solid #d5d0ca;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .option label:hover {
+      border-color: #555;
+    }
+
+    .option input:checked + label {
+      background: #222;
+      color: #fff;
+      border-color: #222;
+    }
+
+    .checkbox-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .checkbox-item {
+      background: #fff;
+      border: 1px solid #d5d0ca;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .checkbox-item:hover {
+      border-color: #555;
+    }
+
+    .estimate-box {
+      background: #fff;
+      border: 1px solid #d5d0ca;
+      padding: 35px 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .estimate-label {
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 10px;
+    }
+
+    #estimate {
+      font-family: Georgia, serif;
+      font-size: 40px;
+      margin-bottom: 14px;
+    }
+
+    .estimate-note {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 24px;
+      background: #222;
+      color: white;
+      text-decoration: none;
+      padding: 15px 28px;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 650px) {
+      .options {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      #estimate {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="calculator">
+
+    <h1>Wedding Invitation Investment Estimator</h1>
+
+    <p class="intro">
+      Select the details you're envisioning for your wedding invitations to receive a general estimated investment range.
+    </p>
+
+    <div class="section">
+      <h2>1. How many invitation suites do you need?</h2>
+
+      <p class="section-note">
+        Order based on households, not total guest count. I recommend adding a few extra suites for keepsakes, photography and last-minute additions.
+      </p>
+
+      <div class="options">
+
+        <div class="option">
+          <input type="radio" name="quantity" id="q50" value="1750">
+          <label for="q50">50 Suites</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="quantity" id="q75" value="2600">
+          <label for="q75">75 Suites</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="quantity" id="q100" value="3200" checked>
+          <label for="q100">100 Suites</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="quantity" id="q125" value="3800">
+          <label for="q125">125 Suites</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="quantity" id="q150" value="4400">
+          <label for="q150">150 Suites</label>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+
+      <h2>2. Printing Style</h2>
+
+      <div class="options">
+
+        <div class="option">
+          <input type="radio" name="printing" id="digital" value="0" checked>
+          <label for="digital">Digital Printing</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="printing" id="letterpress" value="650">
+          <label for="letterpress">Letterpress</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="printing" id="foil" value="750">
+          <label for="foil">Foil Printing</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="printing" id="both" value="1200">
+          <label for="both">Letterpress + Foil</label>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+
+      <h2>3. Paper Style</h2>
+
+      <div class="options">
+
+        <div class="option">
+          <input type="radio" name="paper" id="premium" value="0" checked>
+          <label for="premium">Premium Cardstock</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="paper" id="cotton" value="175">
+          <label for="cotton">Cotton / Specialty Paper</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="paper" id="double" value="350">
+          <label for="double">Double-Thick Paper</label>
+        </div>
+
+        <div class="option">
+          <input type="radio" name="paper" id="deckled" value="425">
+          <label for="deckled">Handmade / Deckled Paper</label>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+
+      <h2>4. Finishing Details</h2>
+
+      <p class="section-note">
+        Select any details you'd love to include.
+      </p>
+
+      <div class="checkbox-list">
+
+        <label class="checkbox-item">
+          <input type="checkbox" class="extra" value="250">
+          Envelope Liners
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" class="extra" value="325">
+          Wax Seals
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" class="extra" value="300">
+          Vellum Wrap or Jacket
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" class="extra" value="275">
+          Silk Ribbon
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" class="extra" value="350">
+          Belly Band
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" class="extra" value="450">
+          Custom Venue Illustration
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" class="extra" value="350">
+          Custom Monogram or Crest
+        </label>
+
+        <label class="checkbox-item">
+          <input type="checkbox" class="extra" value="350">
+          Custom Die-Cut Shape
+        </label>
+
+      </div>
+    </div>
+
+    <div class="estimate-box">
+
+      <div class="estimate-label">
+        Estimated Investment
+      </div>
+
+      <div id="estimate">
+        $3,200 – $3,550
+      </div>
+
+      <p class="estimate-note">
+        This estimate is intended as a general starting point only. Final pricing will depend on your exact quantity, materials, printing methods, artwork, finishing details and overall project scope.
+      </p>
+
+      <a
+        class="button"
+        href="https://www.mynovahaus.com"
+      >
+        Start Your Project
+      </a>
+
+    </div>
+
+  </div>
+
+  <script>
+    function calculateEstimate() {
+
+      let total = 0;
+
+      const quantity = document.querySelector('input[name="quantity"]:checked');
+      const printing = document.querySelector('input[name="printing"]:checked');
+      const paper = document.querySelector('input[name="paper"]:checked');
+
+      if (quantity) {
+        total += Number(quantity.value);
+      }
+
+      if (printing) {
+        total += Number(printing.value);
+      }
+
+      if (paper) {
+        total += Number(paper.value);
+      }
+
+      document.querySelectorAll(".extra:checked").forEach(function(item) {
+        total += Number(item.value);
+      });
+
+      const low = total;
+
+      const high =
+        Math.ceil((total * 1.10) / 50) * 50;
+
+      document.getElementById("estimate").innerText =
+        "$" +
+        low.toLocaleString() +
+        " – $" +
+        high.toLocaleString();
+    }
+
+    document.querySelectorAll("input").forEach(function(input) {
+      input.addEventListener("change", calculateEstimate);
+    });
+
+    calculateEstimate();
+  </script>
+
+</body>
+</html>
