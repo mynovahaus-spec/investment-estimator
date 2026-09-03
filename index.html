@@ -3,394 +3,256 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wedding Invitation Investment Estimator</title>
-
+  <title>Wedding Stationery Investment Estimator</title>
   <style>
-    body {
-      margin: 0;
-      background: #f7f5f2;
-      font-family: Arial, sans-serif;
-      color: #222;
-    }
-
-    .calculator {
-      max-width: 760px;
-      margin: 50px auto;
-      padding: 40px 24px;
-    }
-
-    h1 {
-      font-family: Georgia, serif;
-      font-weight: 400;
-      font-size: 38px;
-      text-align: center;
-      margin-bottom: 12px;
-    }
-
-    .intro {
-      text-align: center;
-      line-height: 1.6;
-      color: #666;
-      max-width: 600px;
-      margin: 0 auto 45px;
-    }
-
-    .section {
-      margin-bottom: 40px;
-    }
-
-    .section h2 {
-      font-family: Georgia, serif;
-      font-weight: 400;
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    .section-note {
-      color: #777;
-      font-size: 14px;
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
-
-    .options {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .option {
-      position: relative;
-    }
-
-    .option input {
-      position: absolute;
-      opacity: 0;
-    }
-
-    .option label {
-      display: block;
-      padding: 16px;
-      text-align: center;
-      background: #fff;
-      border: 1px solid #d5d0ca;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .option label:hover {
-      border-color: #555;
-    }
-
-    .option input:checked + label {
-      background: #222;
-      color: #fff;
-      border-color: #222;
-    }
-
-    .checkbox-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .checkbox-item {
-      background: #fff;
-      border: 1px solid #d5d0ca;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .checkbox-item:hover {
-      border-color: #555;
-    }
-
-    .estimate-box {
-      background: #fff;
-      border: 1px solid #d5d0ca;
-      padding: 35px 20px;
-      text-align: center;
-      margin-top: 50px;
-    }
-
-    .estimate-label {
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-size: 12px;
-      color: #777;
-      margin-bottom: 10px;
-    }
-
-    #estimate {
-      font-family: Georgia, serif;
-      font-size: 40px;
-      margin-bottom: 14px;
-    }
-
-    .estimate-note {
-      color: #777;
-      font-size: 13px;
-      line-height: 1.6;
-      max-width: 540px;
-      margin: 0 auto;
-    }
-
-    .button {
-      display: inline-block;
-      margin-top: 24px;
-      background: #222;
-      color: white;
-      text-decoration: none;
-      padding: 15px 28px;
-      text-transform: uppercase;
-      font-size: 12px;
-      letter-spacing: 1px;
-    }
-
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f7f5f2; font-family: Arial, sans-serif; color: #222; }
+    .calculator { max-width: 760px; margin: 50px auto; padding: 40px 24px; }
+    h1 { font-family: Georgia, serif; font-weight: 400; font-size: 38px; text-align: center; margin-bottom: 12px; }
+    .intro { text-align: center; line-height: 1.6; color: #666; max-width: 600px; margin: 0 auto 45px; }
+    .section { margin-bottom: 40px; }
+    .section h2 { font-family: Georgia, serif; font-weight: 400; font-size: 24px; margin-bottom: 8px; }
+    .section-note { color: #777; font-size: 14px; margin-bottom: 16px; line-height: 1.5; }
+    .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .option { position: relative; }
+    .option input { position: absolute; opacity: 0; }
+    .option label { display: block; height: 100%; padding: 16px; text-align: center; background: #fff; border: 1px solid #d5d0ca; cursor: pointer; transition: 0.2s; }
+    .option label:hover { border-color: #555; }
+    .option input:focus-visible + label { outline: 2px solid #222; outline-offset: 2px; }
+    .option input:checked + label { background: #222; color: #fff; border-color: #222; }
+    .checkbox-list { display: grid; gap: 12px; }
+    .package-details { margin-top: 18px; padding: 20px; background: #fff; border: 1px solid #d5d0ca; color: #666; font-size: 14px; line-height: 1.65; }
+    .package-details strong { color: #222; }
+    .package-details ul { margin: 8px 0 0; padding-left: 20px; }
+    .checkbox-item { background: #fff; border: 1px solid #d5d0ca; padding: 16px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .checkbox-item:hover { border-color: #555; }
+    .add-card-row { background: #fff; border: 1px solid #d5d0ca; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .add-card-row select { min-width: 70px; padding: 8px; border: 1px solid #d5d0ca; background: #fff; color: #222; }
+    .estimate-box { background: #fff; border: 1px solid #d5d0ca; padding: 35px 20px; text-align: center; margin-top: 50px; }
+    .estimate-label { text-transform: uppercase; letter-spacing: 1.5px; font-size: 12px; color: #777; margin-bottom: 10px; }
+    #estimate { font-family: Georgia, serif; font-size: 40px; margin-bottom: 14px; }
+    .estimate-note { color: #777; font-size: 13px; line-height: 1.6; max-width: 540px; margin: 0 auto; }
+    .button { display: inline-block; margin-top: 24px; background: #222; color: #fff; text-decoration: none; padding: 15px 28px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+    .hidden { display: none; }
     @media (max-width: 650px) {
-      .options {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 30px;
-      }
-
-      #estimate {
-        font-size: 32px;
-      }
+      .options { grid-template-columns: 1fr; }
+      h1 { font-size: 30px; }
+      #estimate { font-size: 32px; }
     }
   </style>
 </head>
-
 <body>
-
   <div class="calculator">
-
-    <h1>Wedding Invitation Investment Estimator</h1>
-
-    <p class="intro">
-      Select the details you're envisioning for your wedding invitations to receive a general estimated investment range.
-    </p>
+    <h1>Wedding Stationery Investment Estimator</h1>
+    <p class="intro">Select the details you're envisioning for your wedding stationery to receive a general estimated investment range.</p>
 
     <div class="section">
-      <h2>1. How many invitation suites do you need?</h2>
-
-      <p class="section-note">
-        Order based on households, not total guest count. I recommend adding a few extra suites for keepsakes, photography and last-minute additions.
-      </p>
-
+      <h2>1. What would you like to estimate?</h2>
       <div class="options">
-
         <div class="option">
-          <input type="radio" name="quantity" id="q50" value="1750">
-          <label for="q50">50 Suites</label>
+          <input type="radio" name="collection" id="invitations" value="invitations" checked>
+          <label for="invitations">Signature Invitation Suite<br>Fully Custom</label>
         </div>
-
         <div class="option">
-          <input type="radio" name="quantity" id="q75" value="2600">
-          <label for="q75">75 Suites</label>
+          <input type="radio" name="collection" id="semi-custom" value="semi">
+          <label for="semi-custom">Semi-Custom<br>Invitation Suite</label>
         </div>
-
         <div class="option">
-          <input type="radio" name="quantity" id="q100" value="3200" checked>
-          <label for="q100">100 Suites</label>
+          <input type="radio" name="collection" id="curated-save-dates" value="curated">
+          <label for="curated-save-dates">Curated Collection<br>Save the Dates</label>
         </div>
-
         <div class="option">
-          <input type="radio" name="quantity" id="q125" value="3800">
-          <label for="q125">125 Suites</label>
+          <input type="radio" name="collection" id="concierge-save-dates" value="concierge">
+          <label for="concierge-save-dates">Concierge Collection<br>Save the Dates</label>
         </div>
-
-        <div class="option">
-          <input type="radio" name="quantity" id="q150" value="4400">
-          <label for="q150">150 Suites</label>
-        </div>
-
       </div>
+      <div class="package-details" id="package-details" aria-live="polite"></div>
     </div>
 
     <div class="section">
-
-      <h2>2. Printing Style</h2>
-
-      <div class="options">
-
-        <div class="option">
-          <input type="radio" name="printing" id="digital" value="0" checked>
-          <label for="digital">Digital Printing</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" name="printing" id="letterpress" value="650">
-          <label for="letterpress">Letterpress</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" name="printing" id="foil" value="750">
-          <label for="foil">Foil Printing</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" name="printing" id="both" value="1200">
-          <label for="both">Letterpress + Foil</label>
-        </div>
-
-      </div>
+      <h2>2. How many suites do you need?</h2>
+      <p class="section-note">Order based on households, not total guest count. I recommend adding a few extras for keepsakes, photography and last-minute additions.</p>
+      <div class="options" id="quantity-options"></div>
     </div>
 
-    <div class="section">
-
-      <h2>3. Paper Style</h2>
-
-      <div class="options">
-
-        <div class="option">
-          <input type="radio" name="paper" id="premium" value="0" checked>
-          <label for="premium">Premium Cardstock</label>
+    <div id="upgrade-sections">
+      <div class="section">
+        <h2>3. Printing Style</h2>
+        <div class="options">
+          <div class="option"><input type="radio" name="printing" id="digital" value="0" checked><label for="digital">Digital Printing</label></div>
+          <div class="option"><input type="radio" name="printing" id="letterpress" value="650"><label for="letterpress">Letterpress</label></div>
+          <div class="option"><input type="radio" name="printing" id="foil" value="750"><label for="foil">Foil Printing</label></div>
+          <div class="option"><input type="radio" name="printing" id="both" value="1200"><label for="both">Letterpress + Foil</label></div>
         </div>
-
-        <div class="option">
-          <input type="radio" name="paper" id="cotton" value="175">
-          <label for="cotton">Cotton / Specialty Paper</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" name="paper" id="double" value="350">
-          <label for="double">Double-Thick Paper</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" name="paper" id="deckled" value="425">
-          <label for="deckled">Handmade / Deckled Paper</label>
-        </div>
-
       </div>
-    </div>
 
-    <div class="section">
+      <div class="section" id="included-finish-section">
+        <h2>4. Paper Style</h2>
+        <div class="options">
+          <div class="option"><input type="radio" name="paper" id="premium" value="0" checked><label for="premium">Premium Cardstock</label></div>
+          <div class="option"><input type="radio" name="paper" id="cotton" value="175"><label for="cotton">Cotton / Specialty Paper</label></div>
+          <div class="option"><input type="radio" name="paper" id="double" value="350"><label for="double">Double-Thick Paper</label></div>
+          <div class="option"><input type="radio" name="paper" id="deckled" value="425"><label for="deckled">Handmade / Deckled Paper</label></div>
+        </div>
+      </div>
 
-      <h2>4. Finishing Details</h2>
+      <div class="section hidden" id="semi-finish-section">
+        <h2>5. Optional Embellishments</h2>
+        <p class="section-note">These details are available at an additional investment for Semi-Custom Suites.</p>
+        <div class="checkbox-list">
+          <label class="checkbox-item"><input type="checkbox" class="extra" value="250">Curated Envelope Liners</label>
+          <label class="checkbox-item"><input type="checkbox" class="extra" value="275">Ribbon Wraps</label>
+          <label class="checkbox-item"><input type="checkbox" class="extra" value="350">Belly Bands</label>
+        </div>
+      </div>
 
-      <p class="section-note">
-        Select any details you'd love to include.
-      </p>
+      <div class="section">
+        <h2>5. Included Finishing Detail</h2>
+        <p class="section-note">Your fully custom Signature Suite includes one of the following. Choose the detail you would like included.</p>
+        <div class="options">
+          <div class="option"><input type="radio" name="included-finish" id="included-liner" value="liner" checked><label for="included-liner">Envelope Liner</label></div>
+          <div class="option"><input type="radio" name="included-finish" id="included-ribbon" value="ribbon"><label for="included-ribbon">Ribbon Wrap</label></div>
+          <div class="option"><input type="radio" name="included-finish" id="included-band" value="band"><label for="included-band">Belly Band</label></div>
+        </div>
+      </div>
 
-      <div class="checkbox-list">
+      <div class="section">
+        <h2>6. Additional Enhancements</h2>
+        <p class="section-note">Select any additional details you'd love to include beyond your one included finishing detail.</p>
+        <div class="checkbox-list">
+          <label class="checkbox-item"><input type="checkbox" class="extra" value="325">Wax Seals</label>
+          <label class="checkbox-item"><input type="checkbox" class="extra" value="300">Vellum Wrap or Jacket</label>
+          <label class="checkbox-item"><input type="checkbox" class="extra" value="450">Custom Venue Illustration</label>
+          <label class="checkbox-item"><input type="checkbox" class="extra" value="350">Custom Monogram or Crest</label>
+          <label class="checkbox-item"><input type="checkbox" class="extra" value="350">Custom Die-Cut Shape</label>
+        </div>
+      </div>
 
-        <label class="checkbox-item">
-          <input type="checkbox" class="extra" value="250">
-          Envelope Liners
-        </label>
-
-        <label class="checkbox-item">
-          <input type="checkbox" class="extra" value="325">
-          Wax Seals
-        </label>
-
-        <label class="checkbox-item">
-          <input type="checkbox" class="extra" value="300">
-          Vellum Wrap or Jacket
-        </label>
-
-        <label class="checkbox-item">
-          <input type="checkbox" class="extra" value="275">
-          Silk Ribbon
-        </label>
-
-        <label class="checkbox-item">
-          <input type="checkbox" class="extra" value="350">
-          Belly Band
-        </label>
-
-        <label class="checkbox-item">
-          <input type="checkbox" class="extra" value="450">
-          Custom Venue Illustration
-        </label>
-
-        <label class="checkbox-item">
-          <input type="checkbox" class="extra" value="350">
-          Custom Monogram or Crest
-        </label>
-
-        <label class="checkbox-item">
-          <input type="checkbox" class="extra" value="350">
-          Custom Die-Cut Shape
-        </label>
-
+      <div class="section" id="additional-cards-section">
+        <h2>7. Additional Cards</h2>
+        <p class="section-note">Add cards such as a rehearsal dinner card, weekend itinerary or note from the couple. Choose how many different additional cards you need at each quantity.</p>
+        <div class="checkbox-list">
+          <label class="add-card-row"><span>25 of one additional card — $100</span><select class="additional-card" data-price="100" aria-label="Number of 25-count additional cards"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+          <label class="add-card-row"><span>50 of one additional card — $150</span><select class="additional-card" data-price="150" aria-label="Number of 50-count additional cards"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+          <label class="add-card-row"><span>75 of one additional card — $200</span><select class="additional-card" data-price="200" aria-label="Number of 75-count additional cards"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+          <label class="add-card-row"><span>100 of one additional card — $250</span><select class="additional-card" data-price="250" aria-label="Number of 100-count additional cards"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+          <label class="add-card-row"><span>125 of one additional card — $300</span><select class="additional-card" data-price="300" aria-label="Number of 125-count additional cards"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+          <label class="add-card-row"><span>150 of one additional card — $350</span><select class="additional-card" data-price="350" aria-label="Number of 150-count additional cards"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+        </div>
       </div>
     </div>
 
     <div class="estimate-box">
-
-      <div class="estimate-label">
-        Estimated Investment
-      </div>
-
-      <div id="estimate">
-        $3,200 – $3,550
-      </div>
-
-      <p class="estimate-note">
-        This estimate is intended as a general starting point only. Final pricing will depend on your exact quantity, materials, printing methods, artwork, finishing details and overall project scope.
-      </p>
-
-      <a
-        class="button"
-        href="https://www.mynovahaus.com"
-      >
-        Start Your Project
-      </a>
-
+      <div class="estimate-label">Estimated Investment</div>
+      <div id="estimate">$3,200 – $3,550</div>
+      <p class="estimate-note">This estimate is intended as a general starting point only. Final pricing will depend on your exact quantity, materials, printing methods, artwork, finishing details and overall project scope. Physical postage is billed separately at current market rates.</p>
+      <a class="button" href="https://www.mynovahaus.com">Start Your Project</a>
     </div>
-
   </div>
 
   <script>
-    function calculateEstimate() {
+    const pricing = {
+      invitations: { 50: 1750, 75: 2600, 100: 3200, 125: 3800, 150: 4400 },
+      semi: { 25: 750, 50: 1200, 75: 1800, 100: 2200, 125: 2600, 150: 3000 },
+      curated: { 25: 225, 50: 325, 75: 400, 100: 450, 125: 550, 150: 625 },
+      concierge: { 25: 300, 50: 450, 75: 575, 100: 650, 125: 800, 150: 925 }
+    };
 
-      let total = 0;
+    const quantityOptions = document.getElementById("quantity-options");
+    const upgradeSections = document.getElementById("upgrade-sections");
+    const includedFinishSection = document.getElementById("included-finish-section");
+    const semiFinishSection = document.getElementById("semi-finish-section");
+    const additionalCardsSection = document.getElementById("additional-cards-section");
+    const packageDetails = document.getElementById("package-details");
 
-      const quantity = document.querySelector('input[name="quantity"]:checked');
-      const printing = document.querySelector('input[name="printing"]:checked');
-      const paper = document.querySelector('input[name="paper"]:checked');
+    const packageCopy = {
+      invitations: `
+        <strong>Signature Invitation Suite (Fully Custom)</strong><br>
+        A thoughtfully designed custom suite created to beautifully welcome your guests and set the tone for your celebration.
+        <ul>
+          <li>Custom design and layout</li>
+          <li>Wording questionnaire packet</li>
+          <li>Curated mood board</li>
+          <li>Guided proofing and revision process</li>
+          <li>5×7 main invitation, 3.5×5 RSVP card and 4×6 details card</li>
+          <li>Outer mailing envelope</li>
+          <li>Flat digital printing on premium cardstock</li>
+          <li>One finishing detail: envelope liner, ribbon wrap or belly band</li>
+          <li>Professional assembly, guest and return addressing, quality check and mailing preparation</li>
+        </ul>`,
+      semi: `
+        <strong>The Semi-Custom Collection</strong><br>
+        Our most-loved designs, thoughtfully customized with your wedding details. Perfect for couples who love a curated, polished look with a streamlined design process.
+        <ul>
+          <li>5×7 main invitation</li>
+          <li>3.5×5 RSVP card with QR code or wedding website</li>
+          <li>4×6 details card</li>
+          <li>Outer mailing envelope</li>
+          <li>Flat digital printing on premium cardstock</li>
+          <li>Three rounds of revisions</li>
+          <li>Optional embellishments are available at an additional investment</li>
+          <li>Assembly, addressing, postage application and mailing coordination are optional add-on services and are not included</li>
+        </ul>`,
+      curated: `<strong>Curated Collection – Save the Dates</strong><br>Includes custom design, a professionally printed 5×7 save-the-date card, blank envelope, and careful packaging and preparation.`,
+      concierge: `<strong>Concierge Collection – Save the Dates</strong><br>Includes custom design, a professionally printed 5×7 save-the-date card, envelope, printed guest and return addressing, and careful packaging and preparation.`
+    };
 
-      if (quantity) {
-        total += Number(quantity.value);
-      }
-
-      if (printing) {
-        total += Number(printing.value);
-      }
-
-      if (paper) {
-        total += Number(paper.value);
-      }
-
-      document.querySelectorAll(".extra:checked").forEach(function(item) {
-        total += Number(item.value);
-      });
-
-      const low = total;
-
-      const high =
-        Math.ceil((total * 1.10) / 50) * 50;
-
-      document.getElementById("estimate").innerText =
-        "$" +
-        low.toLocaleString() +
-        " – $" +
-        high.toLocaleString();
+    function selectedCollection() {
+      return document.querySelector('input[name="collection"]:checked').value;
     }
 
-    document.querySelectorAll("input").forEach(function(input) {
-      input.addEventListener("change", calculateEstimate);
+    function renderQuantities() {
+      const collection = selectedCollection();
+      const quantities = pricing[collection];
+      packageDetails.innerHTML = packageCopy[collection];
+      const preferredQuantity = quantities[100] ? 100 : Number(Object.keys(quantities)[0]);
+
+      quantityOptions.innerHTML = Object.entries(quantities).map(([quantity, price]) => `
+        <div class="option">
+          <input type="radio" name="quantity" id="q${quantity}" value="${price}" ${Number(quantity) === preferredQuantity ? "checked" : ""}>
+          <label for="q${quantity}">${quantity} Suites</label>
+        </div>
+      `).join("");
+
+      quantityOptions.querySelectorAll('input[name="quantity"]').forEach(input => {
+        input.addEventListener("change", calculateEstimate);
+      });
+
+      calculateEstimate();
+    }
+
+    function calculateEstimate() {
+      let total = Number(document.querySelector('input[name="quantity"]:checked')?.value || 0);
+      const isInvitationSuite = ["invitations", "semi"].includes(selectedCollection());
+
+      if (isInvitationSuite) {
+        total += Number(document.querySelector('input[name="printing"]:checked')?.value || 0);
+        total += Number(document.querySelector('input[name="paper"]:checked')?.value || 0);
+        document.querySelectorAll(".extra:checked").forEach(item => total += Number(item.value));
+        document.querySelectorAll(".additional-card").forEach(item => {
+          total += Number(item.value) * Number(item.dataset.price);
+        });
+      }
+
+      const high = Math.ceil((total * 1.10) / 25) * 25;
+      document.getElementById("estimate").innerText = `$${total.toLocaleString()} – $${high.toLocaleString()}`;
+    }
+
+    document.querySelectorAll('input[name="collection"]').forEach(input => {
+      input.addEventListener("change", function () {
+        const collection = selectedCollection();
+        const isInvitationSuite = ["invitations", "semi"].includes(collection);
+        upgradeSections.classList.toggle("hidden", !isInvitationSuite);
+        includedFinishSection.classList.toggle("hidden", collection !== "invitations");
+        semiFinishSection.classList.toggle("hidden", collection !== "semi");
+        additionalCardsSection.classList.toggle("hidden", !isInvitationSuite);
+        renderQuantities();
+      });
     });
 
-    calculateEstimate();
+    document.querySelectorAll('#upgrade-sections input').forEach(input => input.addEventListener("change", calculateEstimate));
+    document.querySelectorAll('.additional-card').forEach(input => input.addEventListener("change", calculateEstimate));
+    renderQuantities();
   </script>
-
 </body>
 </html>
