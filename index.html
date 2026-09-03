@@ -5,35 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wedding Stationery Investment Estimator</title>
   <style>
+    :root {
+      --nova-blue: #9db2c4;
+      --nova-blue-dark: #8fa6b9;
+      --nova-sage: #d8ddbf;
+      --nova-sage-dark: #c8d0b6;
+      --nova-cream: #fbfaf7;
+      --nova-white: #ffffff;
+      --nova-text: #6f7472;
+      --nova-border: #dfe3d7;
+    }
     * { box-sizing: border-box; }
-    body { margin: 0; background: #f7f5f2; font-family: Arial, sans-serif; color: #222; }
+    body { margin: 0; background: var(--nova-cream); font-family: Arial, sans-serif; color: var(--nova-text); }
     .calculator { max-width: 760px; margin: 50px auto; padding: 40px 24px; }
-    h1 { font-family: Georgia, serif; font-weight: 400; font-size: 38px; text-align: center; margin-bottom: 12px; }
+    h1 { font-family: Georgia, serif; font-weight: 400; font-size: 38px; text-align: center; margin-bottom: 12px; color: var(--nova-sage-dark); }
     .intro { text-align: center; line-height: 1.6; color: #666; max-width: 600px; margin: 0 auto 45px; }
     .section { margin-bottom: 40px; }
-    .section h2 { font-family: Georgia, serif; font-weight: 400; font-size: 24px; margin-bottom: 8px; }
+    .section h2 { font-family: Georgia, serif; font-weight: 400; font-size: 24px; margin-bottom: 8px; color: var(--nova-blue); }
     .section-note { color: #777; font-size: 14px; margin-bottom: 16px; line-height: 1.5; }
     .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .option { position: relative; }
     .option input { position: absolute; opacity: 0; }
-    .option label { display: block; height: 100%; padding: 16px; text-align: center; background: #fff; border: 1px solid #d5d0ca; cursor: pointer; transition: 0.2s; }
-    .option label:hover { border-color: #555; }
-    .option input:focus-visible + label { outline: 2px solid #222; outline-offset: 2px; }
-    .option input:checked + label { background: #222; color: #fff; border-color: #222; }
+    .option label { display: block; height: 100%; padding: 16px; text-align: center; background: var(--nova-white); border: 1px solid var(--nova-border); cursor: pointer; transition: 0.2s; }
+    .option label:hover { border-color: var(--nova-blue); }
+    .option input:focus-visible + label { outline: 2px solid var(--nova-blue); outline-offset: 2px; }
+    .option input:checked + label { background: var(--nova-blue); color: var(--nova-white); border-color: var(--nova-blue); }
     .checkbox-list { display: grid; gap: 12px; }
-    .package-details { margin-top: 18px; padding: 20px; background: #fff; border: 1px solid #d5d0ca; color: #666; font-size: 14px; line-height: 1.65; }
-    .package-details strong { color: #222; }
+    .package-details { margin-top: 18px; padding: 20px; background: var(--nova-white); border: 1px solid var(--nova-border); color: var(--nova-text); font-size: 14px; line-height: 1.65; }
+    .package-details strong { color: var(--nova-blue); }
     .package-details ul { margin: 8px 0 0; padding-left: 20px; }
-    .checkbox-item { background: #fff; border: 1px solid #d5d0ca; padding: 16px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
-    .checkbox-item:hover { border-color: #555; }
-    .add-card-row { background: #fff; border: 1px solid #d5d0ca; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .add-card-row select { min-width: 70px; padding: 8px; border: 1px solid #d5d0ca; background: #fff; color: #222; }
-    .estimate-box { background: #fff; border: 1px solid #d5d0ca; padding: 35px 20px; text-align: center; margin-top: 50px; }
+    .checkbox-item { background: var(--nova-white); border: 1px solid var(--nova-border); padding: 16px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .checkbox-item:hover { border-color: var(--nova-blue); }
+    .add-card-row { background: var(--nova-white); border: 1px solid var(--nova-border); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .add-card-row select { min-width: 70px; padding: 8px; border: 1px solid var(--nova-border); background: var(--nova-white); color: var(--nova-text); }
+    .estimate-box { background: var(--nova-white); border: 1px solid var(--nova-border); padding: 35px 20px; text-align: center; margin-top: 50px; }
     .estimate-label { text-transform: uppercase; letter-spacing: 1.5px; font-size: 12px; color: #777; margin-bottom: 10px; }
-    #estimate { font-family: Georgia, serif; font-size: 40px; margin-bottom: 14px; }
+    #estimate { font-family: Georgia, serif; font-size: 40px; margin-bottom: 14px; color: var(--nova-blue); }
     .estimate-note { color: #777; font-size: 13px; line-height: 1.6; max-width: 540px; margin: 0 auto; }
-    .button { display: inline-block; margin-top: 24px; background: #222; color: #fff; text-decoration: none; padding: 15px 28px; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+    .button { display: inline-block; margin-top: 24px; background: var(--nova-blue); color: var(--nova-white); text-decoration: none; padding: 15px 28px; text-transform: uppercase; font-size: 12px; letter-spacing: 2px; }
+    .button:hover { background: var(--nova-blue-dark); }
     .hidden { display: none; }
+    #upgrade-sections { display: none; }
     @media (max-width: 650px) {
       .options { grid-template-columns: 1fr; }
       h1 { font-size: 30px; }
@@ -145,7 +157,7 @@
     <div class="estimate-box">
       <div class="estimate-label">Estimated Investment</div>
       <div id="estimate">$3,200 – $3,550</div>
-      <p class="estimate-note">This estimate is intended as a general starting point only. Final pricing will depend on your exact quantity, materials, printing methods, artwork, finishing details and overall project scope. Physical postage is billed separately at current market rates.</p>
+      <p class="estimate-note">This estimate is intended as a general starting point only. Final pricing will depend on your exact quantity and overall project scope. Physical postage is billed separately at current market rates.</p>
       <a class="button" href="https://www.mynovahaus.com">Start Your Project</a>
     </div>
   </div>
@@ -223,16 +235,6 @@
 
     function calculateEstimate() {
       let total = Number(document.querySelector('input[name="quantity"]:checked')?.value || 0);
-      const isInvitationSuite = ["invitations", "semi"].includes(selectedCollection());
-
-      if (isInvitationSuite) {
-        total += Number(document.querySelector('input[name="printing"]:checked')?.value || 0);
-        total += Number(document.querySelector('input[name="paper"]:checked')?.value || 0);
-        document.querySelectorAll(".extra:checked").forEach(item => total += Number(item.value));
-        document.querySelectorAll(".additional-card").forEach(item => {
-          total += Number(item.value) * Number(item.dataset.price);
-        });
-      }
 
       const high = Math.ceil((total * 1.10) / 25) * 25;
       document.getElementById("estimate").innerText = `$${total.toLocaleString()} – $${high.toLocaleString()}`;
@@ -240,12 +242,6 @@
 
     document.querySelectorAll('input[name="collection"]').forEach(input => {
       input.addEventListener("change", function () {
-        const collection = selectedCollection();
-        const isInvitationSuite = ["invitations", "semi"].includes(collection);
-        upgradeSections.classList.toggle("hidden", !isInvitationSuite);
-        includedFinishSection.classList.toggle("hidden", collection !== "invitations");
-        semiFinishSection.classList.toggle("hidden", collection !== "semi");
-        additionalCardsSection.classList.toggle("hidden", !isInvitationSuite);
         renderQuantities();
       });
     });
