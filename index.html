@@ -234,7 +234,7 @@
     </div>
 
     <div class="estimate-box">
-      <div class="estimate-label">Estimated Starting Investment</div>
+      <div class="estimate-label">Estimated Investment Range</div>
       <div id="estimate">$3,400</div>
 
       <p class="estimate-note" id="estimate-note">
@@ -296,11 +296,14 @@
         Envelope liner, ribbon wrap, or belly band.
 
         <span class="subheading">Full-Service Assembly &amp; Addressing Included</span>
-        Professional suite assembly, guest and return addressing, quality review, and mailing preparation are included.
-        Signature Suites arrive fully assembled and prepared for mailing; envelopes are not sealed.
+        Your Signature Suite includes professional assembly, guest and return addressing, quality review, and preparation for mailing.
+        Your completed suites will arrive fully assembled and ready for you to add postage, seal, and mail.
 
-        <span class="subheading">The Mailbox-Ready Service</span>
-        From our studio straight to their mailbox. Available as an optional add-on for final postage coordination and direct mailing to your guests.
+        <span class="subheading">Optional Add-On: The Mailbox-Ready Service</span>
+        <strong>Want us to handle the mailing, too?</strong> Add our Mailbox-Ready Service and we’ll take care of postage coordination,
+        sealing, and mailing your completed invitation suites directly from our studio to your guests.
+
+        <br><br><strong>This is an optional add-on service and is not included in the Signature Invitation Suite pricing.</strong>
         Postage is billed separately at actual cost.
       `,
 
@@ -323,19 +326,21 @@
 
         Printed guest addressing and return address printing are available as optional upgrades.
 
-        <span class="subheading">The Mailbox-Ready Service</span>
-        From our studio straight to their mailbox. Available as an optional add-on for final assembly,
-        postage coordination, and direct mailing to your guests.
+        <span class="subheading">Optional Add-On: The Mailbox-Ready Service</span>
+        <strong>Want us to handle the mailing, too?</strong> Add our Mailbox-Ready Service and we’ll take care of final assembly,
+        postage coordination, sealing, and mailing your Save the Dates directly from our studio to your guests.
+
+        <br><br><strong>This service is not included in the Curated Save the Date pricing.</strong>
         Postage is billed separately at actual cost.
       `
     };
 
     const estimateNotes = {
       invitations:
-        "Pricing reflects standard invitation sizing. Custom shapes, die cuts, specialty papers, specialty formats, and postage are available at an additional cost.",
+        "Pricing reflects standard invitation sizing. Direct guest mailing is not included. The Mailbox-Ready Service, postage, custom shapes, die cuts, specialty papers, and specialty formats are available at an additional cost.",
 
       saveDates:
-        "Printed guest addressing, return address printing, Mailbox-Ready Service, specialty papers, custom formats, and postage are available at an additional cost."
+        "Direct guest mailing is not included. Printed guest addressing, return address printing, the Mailbox-Ready Service, specialty papers, custom formats, and postage are available at an additional cost."
     };
 
     const quantityOptions = document.getElementById("quantity-options");
@@ -389,7 +394,8 @@
         document.querySelector('input[name="quantity"]:checked')?.value || 0
       );
 
-      estimate.innerText = `$${total.toLocaleString()}`;
+      const high = Math.ceil((total * 1.10) / 25) * 25;
+      estimate.innerText = `$${total.toLocaleString()} – $${high.toLocaleString()}`;
     }
 
     document
