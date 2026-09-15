@@ -211,12 +211,12 @@
       <div class="options">
         <div class="option">
           <input type="radio" name="collection" id="invitations" value="invitations" checked>
-          <label for="invitations">Signature<br>Invitation Suite</label>
+          <label for="invitations">Custom<br>Invitation Suites</label>
         </div>
 
         <div class="option">
           <input type="radio" name="collection" id="save-dates" value="saveDates">
-          <label for="save-dates">Curated<br>Save the Dates</label>
+          <label for="save-dates">Custom<br>Save the Dates</label>
         </div>
       </div>
 
@@ -263,7 +263,6 @@
       },
 
       saveDates: {
-        25: 425,
         50: 575,
         75: 725,
         100: 850,
@@ -274,7 +273,7 @@
 
     const packageCopy = {
       invitations: `
-        <strong>Signature Invitation Suite</strong><br>
+        <strong>Custom Invitation Suites</strong><br>
         A fully custom invitation experience designed to carry your wedding aesthetic through every detail.
 
         <ul>
@@ -296,19 +295,19 @@
         Envelope liner, ribbon wrap, or belly band.
 
         <span class="subheading">Full-Service Assembly &amp; Addressing Included</span>
-        Your Signature Suite includes professional assembly, guest and return addressing, quality review, and preparation for mailing.
+        Your Custom Invitation Suite includes professional assembly, guest and return addressing, quality review, and preparation for mailing.
         Your completed suites will arrive fully assembled and ready for you to add postage, seal, and mail.
 
         <span class="subheading">Optional Add-On: The Mailbox-Ready Service</span>
         <strong>Want us to handle the mailing, too?</strong> Add our Mailbox-Ready Service and we’ll take care of postage coordination,
         sealing, and mailing your completed invitation suites directly from our studio to your guests.
 
-        <br><br><strong>This is an optional add-on service and is not included in the Signature Invitation Suite pricing.</strong>
+        <br><br><strong>This is an optional add-on service and is not included in the Custom Invitation Suite pricing.</strong>
         Postage is billed separately at actual cost.
       `,
 
       saveDates: `
-        <strong>Curated Save the Dates</strong><br>
+        <strong>Custom Save the Dates</strong><br>
         A polished, custom-designed Save the Date created to coordinate beautifully with your wedding aesthetic.
 
         <ul>
@@ -330,7 +329,7 @@
         <strong>Want us to handle the mailing, too?</strong> Add our Mailbox-Ready Service and we’ll take care of final assembly,
         postage coordination, sealing, and mailing your Save the Dates directly from our studio to your guests.
 
-        <br><br><strong>This service is not included in the Curated Save the Date pricing.</strong>
+        <br><br><strong>This service is not included in the Custom Save the Date pricing.</strong>
         Postage is billed separately at actual cost.
       `
     };
@@ -394,8 +393,9 @@
         document.querySelector('input[name="quantity"]:checked')?.value || 0
       );
 
-      const high = Math.ceil((total * 1.10) / 25) * 25;
-      estimate.innerText = `$${total.toLocaleString()} – $${high.toLocaleString()}`;
+      const low = Math.floor((total * 0.90) / 25) * 25;
+      const high = (2 * total) - low;
+      estimate.innerText = `$${low.toLocaleString()} – $${high.toLocaleString()}`;
     }
 
     document
