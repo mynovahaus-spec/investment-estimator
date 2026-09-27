@@ -76,6 +76,10 @@
       gap: 12px;
     }
 
+    #package-options {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
     .option {
       position: relative;
     }
@@ -86,7 +90,10 @@
     }
 
     .option label {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
       height: 100%;
       padding: 16px;
       text-align: center;
@@ -94,6 +101,7 @@
       border: 1px solid var(--nova-border);
       cursor: pointer;
       transition: 0.2s;
+      line-height: 1.4;
     }
 
     .option label:hover {
@@ -130,10 +138,14 @@
       padding-left: 20px;
     }
 
+    .package-details li {
+      margin-bottom: 3px;
+    }
+
     .subheading {
       display: block;
-      margin-top: 16px;
-      margin-bottom: 4px;
+      margin-top: 18px;
+      margin-bottom: 5px;
       font-weight: 700;
       color: var(--nova-text);
     }
@@ -186,7 +198,8 @@
     }
 
     @media (max-width: 650px) {
-      .options {
+      .options,
+      #package-options {
         grid-template-columns: 1fr;
       }
 
@@ -203,757 +216,761 @@
 
 <body>
 
-<div class="calculator">
+  <div class="calculator">
 
-  <h1>Wedding Stationery Investment Estimator</h1>
+    <h1>Wedding Stationery Investment Estimator</h1>
 
-  <p class="intro">
-    Select your preferred stationery collection, package, and quantity
-    to instantly view your estimated investment.
-  </p>
+    <p class="intro">
+      Select your preferred stationery collection, package, and quantity
+      to instantly view your estimated investment.
+    </p>
 
-  <!-- STEP 1 -->
+    <!-- STEP 1 -->
 
-  <div class="section">
+    <div class="section">
 
-    <h2>1. What would you like to estimate?</h2>
+      <h2>1. What would you like to estimate?</h2>
 
-    <div class="options">
+      <div class="options">
 
-      <div class="option">
-        <input
-          type="radio"
-          name="collection"
-          id="invitations"
-          value="invitations"
-          checked
-        >
-        <label for="invitations">
-          Invitation<br>Suites
-        </label>
+        <div class="option">
+          <input
+            type="radio"
+            name="collection"
+            id="invitations"
+            value="invitations"
+            checked
+          >
+          <label for="invitations">
+            Invitation Suites
+          </label>
+        </div>
+
+        <div class="option">
+          <input
+            type="radio"
+            name="collection"
+            id="save-dates"
+            value="saveDates"
+          >
+          <label for="save-dates">
+            Save the Dates
+          </label>
+        </div>
+
       </div>
 
-      <div class="option">
-        <input
-          type="radio"
-          name="collection"
-          id="save-dates"
-          value="saveDates"
-        >
-        <label for="save-dates">
-          Save<br>the Dates
-        </label>
+    </div>
+
+    <!-- STEP 2 -->
+
+    <div class="section">
+
+      <h2>2. Choose your package</h2>
+
+      <div
+        class="options"
+        id="package-options"
+      ></div>
+
+      <div
+        class="package-details"
+        id="package-details"
+        aria-live="polite"
+      ></div>
+
+    </div>
+
+    <!-- STEP 3 -->
+
+    <div class="section">
+
+      <h2>3. How many do you need?</h2>
+
+      <p
+        class="section-note"
+        id="quantity-note"
+      ></p>
+
+      <div
+        class="options"
+        id="quantity-options"
+      ></div>
+
+    </div>
+
+    <!-- ESTIMATE -->
+
+    <div class="estimate-box">
+
+      <div class="estimate-label">
+        Estimated Investment
       </div>
 
+      <div id="estimate">
+        $2,250
+      </div>
+
+      <p
+        class="estimate-note"
+        id="estimate-note"
+      ></p>
+
+      <a
+        class="button"
+        href="https://www.novahausstationery.com/general-inquiry-form"
+        target="_top"
+      >
+        Start Your Project
+      </a>
+
     </div>
 
   </div>
 
-  <!-- STEP 2 -->
 
-  <div class="section">
+  <script>
 
-    <h2>2. Choose your package</h2>
+    const packages = {
 
-    <div class="options" id="package-options"></div>
+      /* =====================================================
+         INVITATION SUITES
+      ===================================================== */
 
-    <div
-      class="package-details"
-      id="package-details"
-      aria-live="polite"
-    ></div>
+      invitations: {
 
-  </div>
+        /* ESSENTIAL INVITATION SUITES */
 
-  <!-- STEP 3 -->
+        essential: {
 
-  <div class="section">
+          name: "Essential Invitation Suites",
 
-    <h2>3. How many do you need?</h2>
+          pricing: {
+            50: 1400,
+            75: 1850,
+            100: 2250,
+            125: 2650,
+            150: 3050
+          },
 
-    <p
-      class="section-note"
-      id="quantity-note"
-    ></p>
+          copy: `
+            <strong>Essential Invitation Suites</strong>
 
-    <div
-      class="options"
-      id="quantity-options"
-    ></div>
+            <ul>
+              <li>Custom design &amp; layout</li>
+              <li>Invitation Information Questionnaire</li>
+              <li>Curated mood board to align on the overall wedding style, color palette, and aesthetic direction</li>
+              <li>Custom stationery styling direction throughout the design process</li>
+              <li>Guided proofing &amp; revision process</li>
+              <li>Guest list review for address formatting, completeness &amp; potential mailing errors</li>
+              <li>Main invitation card — 5 × 7</li>
+              <li>RSVP card with QR code or wedding website — 3.5 × 5</li>
+              <li>Details card — 4 × 6</li>
+              <li>Outer mailing envelope</li>
+              <li>Flat digital printing</li>
+              <li>Premium cardstock with a smooth, softly textured finish</li>
+            </ul>
 
-  </div>
+            <span class="subheading">
+              Envelope Addressing Included
+            </span>
 
-  <!-- ESTIMATE -->
+            Guest and return address printing are included for a polished,
+            cohesive presentation.
 
-  <div class="estimate-box">
+            <span class="subheading">
+              Elevated Design Experience
+            </span>
 
-    <div class="estimate-label">
-      Estimated Investment
-    </div>
+            Additional design customization throughout the suite with
+            coordinated styling of finishing details, paper, and artwork
+            for a cohesive final presentation.
 
-    <div id="estimate">
-      $2,250
-    </div>
+            <span class="subheading">
+              Assembly Not Included
+            </span>
 
-    <p
-      class="estimate-note"
-      id="estimate-note"
-    ></p>
+            Invitation suites will arrive carefully packaged but unassembled.
+            Professional assembly and mailing preparation may be added separately.
+          `,
 
-    <a
-      class="button"
-      href="https://www.novahausstationery.com/general-inquiry-form"
-      target="_top"
-    >
-      Start Your Project
-    </a>
+          note:
+            "Pricing reflects standard invitation sizing. Custom shapes, die cuts, specialty formats, postage, and mailing services are available at an additional cost."
 
-  </div>
+        },
 
-</div>
 
-<script>
+        /* SIGNATURE INVITATION SUITES */
 
-const packages = {
+        signature: {
 
-  /* =====================================================
-     INVITATION SUITES
-  ===================================================== */
+          name: "Signature Invitation Suites",
 
-  invitations: {
+          pricing: {
+            50: 2400,
+            75: 2950,
+            100: 3400,
+            125: 3850,
+            150: 4300
+          },
 
-    /* ESSENTIAL INVITATION SUITES */
+          copy: `
+            <strong>Signature Invitation Suites</strong>
 
-    essential: {
+            <ul>
+              <li>Custom design &amp; layout</li>
+              <li>Invitation Information Questionnaire</li>
+              <li>Curated mood board to align on the overall wedding style, color palette, and aesthetic direction</li>
+              <li>Custom stationery styling direction throughout the design process</li>
+              <li>Guided proofing &amp; revision process</li>
+              <li>Guest list review for address formatting, completeness &amp; potential mailing errors</li>
+              <li>Main invitation card — 5 × 7</li>
+              <li>RSVP card with QR code or wedding website — 3.5 × 5</li>
+              <li>Details card — 4 × 6</li>
+              <li>Outer mailing envelope</li>
+              <li>Flat digital printing</li>
+              <li>Premium cardstock with a smooth, softly textured finish</li>
+            </ul>
 
-      name: "Essential Invitation Suites",
+            <span class="subheading">
+              Envelope Addressing Included
+            </span>
 
-      pricing: {
-        50: 1400,
-        75: 1850,
-        100: 2250,
-        125: 2650,
-        150: 3050
+            Guest and return address printing are included for a polished,
+            cohesive presentation.
+
+            <span class="subheading">
+              Elevated Design Experience
+            </span>
+
+            Additional design customization throughout the suite with
+            coordinated styling of finishing details, paper, and artwork
+            for a cohesive final presentation.
+
+            <span class="subheading">
+              Finishing Detail — Choose One
+            </span>
+
+            Envelope liner, ribbon wrap, or belly band.
+
+            <span class="subheading">
+              Full-Service Assembly &amp; Addressing Included
+            </span>
+
+            This package includes professional suite assembly, guest and
+            return addressing, quality check, and mailing preparation services.
+
+            Signature Suites arrive fully assembled and prepared for mailing;
+            envelopes are not sealed.
+          `,
+
+          note:
+            "Pricing reflects standard invitation sizing. Custom shapes, die cuts, specialty formats, postage, and mailing services are available at an additional cost."
+
+        },
+
+
+        /* HEIRLOOM INVITATION SUITES */
+
+        heirloom: {
+
+          name: "Heirloom Invitation Suites",
+
+          pricing: {
+            50: 3250,
+            75: 3900,
+            100: 4550,
+            125: 5200,
+            150: 5850
+          },
+
+          copy: `
+            <strong>Heirloom Invitation Suites</strong>
+
+            <ul>
+              <li>Custom design &amp; layout</li>
+              <li>Invitation Information Questionnaire</li>
+              <li>Curated mood board to align on the overall wedding style, color palette, and aesthetic direction</li>
+              <li>Custom stationery styling direction throughout the design process</li>
+              <li>Guided proofing &amp; revision process</li>
+              <li>Guest list review for address formatting, completeness &amp; potential mailing errors</li>
+              <li>Main invitation card — 5 × 7</li>
+              <li>RSVP card with QR code or wedding website — 3.5 × 5</li>
+              <li>Details card — 4 × 6</li>
+              <li>Outer mailing envelope</li>
+              <li>Flat digital printing</li>
+              <li>Premium cardstock with a smooth, softly textured finish</li>
+            </ul>
+
+            <span class="subheading">
+              Envelope Addressing Included
+            </span>
+
+            Guest and return address printing are included for a polished,
+            cohesive presentation.
+
+            <span class="subheading">
+              Elevated Design Experience
+            </span>
+
+            Additional design customization throughout the suite with
+            coordinated styling of finishing details, paper, and artwork
+            for a cohesive final presentation.
+
+            <span class="subheading">
+              Full-Service Assembly &amp; Addressing Included
+            </span>
+
+            This package includes professional suite assembly, guest and
+            return addressing, quality check, finishing detail application,
+            and mailing preparation services.
+
+            Heirloom Suites arrive fully assembled and prepared for mailing.
+            Envelope sealing is available only upon request. If envelope
+            sealing is requested, extra suites will remain unsealed.
+
+            <span class="subheading">
+              Upgraded Paper — Choose One
+            </span>
+
+            Felt stock, linen stock, or cotton stock.
+
+            <span class="subheading">
+              Elevated Finishing Details — Choose Three
+            </span>
+
+            Envelope liner, ribbon wrap, belly band, hand-applied wax seal,
+            or silk ribbon.
+
+            <span class="subheading">
+              Custom Design Element — Choose One
+            </span>
+
+            Custom monogram or custom watercolor venue illustration.
+          `,
+
+          note:
+            "Pricing reflects standard invitation sizing. Custom shapes, die cuts, specialty formats, postage, and mailing services are available at an additional cost."
+
+        }
+
       },
 
-      copy: `
-        <strong>Essential Invitation Suites</strong><br>
 
-        <ul>
-          <li>Custom design &amp; layout</li>
-          <li>Invitation Information Questionnaire</li>
-          <li>Curated mood board to align on the overall wedding style, color palette, and aesthetic direction</li>
-          <li>Custom stationery styling direction throughout the design process</li>
-          <li>Guided proofing &amp; revision process</li>
-          <li>Guest list review for address formatting, completeness &amp; potential mailing errors</li>
-          <li>Main invitation card — 5 × 7</li>
-          <li>RSVP card with QR code or wedding website — 3.5 × 5</li>
-          <li>Details card — 4 × 6</li>
-          <li>Outer mailing envelope</li>
-          <li>Flat digital printing</li>
-          <li>Premium cardstock with a smooth, softly textured finish</li>
-        </ul>
+      /* =====================================================
+         SAVE THE DATES
+      ===================================================== */
 
-        <span class="subheading">
-          Envelope Addressing Included
-        </span>
+      saveDates: {
 
-        Guest and return address printing are included for a polished,
-        cohesive presentation.
+        /* ESSENTIAL SAVE THE DATES */
 
-        <span class="subheading">
-          Elevated Design Experience
-        </span>
+        essential: {
 
-        Additional design customization throughout the suite with
-        coordinated styling of paper, artwork, and overall presentation
-        for a cohesive final design.
+          name: "Essential Save the Dates",
 
-        <span class="subheading">
-          Assembly Not Included
-        </span>
+          pricing: {
+            25: 425,
+            50: 575,
+            75: 725,
+            100: 850,
+            125: 975,
+            150: 1100
+          },
 
-        Invitation suites will arrive carefully packaged but unassembled.
-        Professional assembly and mailing preparation may be added separately.
-      `,
+          copy: `
+            <strong>Essential Save the Dates</strong>
 
-      note:
-        "Pricing reflects standard invitation sizing. Custom shapes, die cuts, specialty formats, postage, and mailing services are available at an additional cost."
+            <ul>
+              <li>Custom design &amp; layout</li>
+              <li>Save the Date Information Questionnaire</li>
+              <li>Personalized styling to coordinate with your wedding aesthetic</li>
+              <li>Custom stationery styling direction throughout the design process</li>
+              <li>Guided proofing &amp; revision process</li>
+              <li>Printed Save the Date card — A7 (5 × 7)</li>
+              <li>Blank outer mailing envelope</li>
+              <li>Flat digital printing</li>
+              <li>Premium cardstock with a smooth, softly textured finish</li>
+              <li>Final print preparation &amp; quality review</li>
+              <li>Carefully packaged &amp; prepared</li>
+            </ul>
 
-    },
+            <span class="subheading">
+              Envelope Addressing Not Included
+            </span>
 
+            Guest and return address printing are not included in this package.
+            Envelopes will arrive blank and ready for you to address.
 
-    /* SIGNATURE INVITATION SUITES */
+            <span class="subheading">
+              Assembly Not Included
+            </span>
 
-    signature: {
+            Save the Dates will arrive carefully packaged but unassembled.
+            Professional assembly may be added separately or is included
+            with the Heirloom Save the Dates package.
+          `,
 
-      name: "Signature Invitation Suites",
+          note:
+            "Postage and mailing services are not included and may be added separately."
 
-      pricing: {
-        50: 1650,
-        75: 2150,
-        100: 2650,
-        125: 3200,
-        150: 3750
-      },
-
-      copy: `
-        <strong>Signature Invitation Suites</strong><br>
-
-        <ul>
-          <li>Custom design &amp; layout</li>
-          <li>Invitation Information Questionnaire</li>
-          <li>Curated mood board to align on the overall wedding style, color palette, and aesthetic direction</li>
-          <li>Custom stationery styling direction throughout the design process</li>
-          <li>Guided proofing &amp; revision process</li>
-          <li>Guest list review for address formatting, completeness &amp; potential mailing errors</li>
-          <li>Main invitation card — 5 × 7</li>
-          <li>RSVP card with QR code or wedding website — 3.5 × 5</li>
-          <li>Details card — 4 × 6</li>
-          <li>Outer mailing envelope</li>
-          <li>Flat digital printing</li>
-          <li>Premium cardstock with a smooth, softly textured finish</li>
-        </ul>
-
-        <span class="subheading">
-          Envelope Addressing Included
-        </span>
-
-        Guest and return address printing are included for a polished,
-        cohesive presentation.
-
-        <span class="subheading">
-          Elevated Design Experience
-        </span>
-
-        Additional design customization throughout the suite with
-        coordinated styling of finishing details, paper, and artwork
-        for a cohesive final presentation.
-
-        <span class="subheading">
-          Finishing Detail — Choose One
-        </span>
-
-        Envelope liner, ribbon wrap, or belly band.
-
-        <span class="subheading">
-          Full-Service Assembly &amp; Addressing Included
-        </span>
-
-        This package includes professional suite assembly, guest and return
-        addressing, quality check, and mailing preparation services.
-
-        Signature Suites arrive fully assembled and prepared for mailing;
-        envelopes are not sealed.
-      `,
-
-      note:
-        "Pricing reflects standard invitation sizing. Custom shapes, die cuts, specialty formats, postage, and mailing services are available at an additional cost."
-
-    },
+        },
 
 
-    /* HEIRLOOM INVITATION SUITES */
+        /* SIGNATURE SAVE THE DATES */
 
-    heirloom: {
+        signature: {
 
-      name: "Heirloom Invitation Suites",
+          name: "Signature Save the Dates",
 
-      pricing: {
-        50: 2000,
-        75: 2750,
-        100: 3400,
-        125: 4050,
-        150: 4700
-      },
+          pricing: {
+            25: 550,
+            50: 750,
+            75: 925,
+            100: 1100,
+            125: 1275,
+            150: 1450
+          },
 
-      copy: `
-        <strong>Heirloom Invitation Suites</strong><br>
+          copy: `
+            <strong>Signature Save the Dates</strong>
 
-        <ul>
-          <li>Custom design &amp; layout</li>
-          <li>Invitation Information Questionnaire</li>
-          <li>Curated mood board to align on the overall wedding style, color palette, and aesthetic direction</li>
-          <li>Custom stationery styling direction throughout the design process</li>
-          <li>Guided proofing &amp; revision process</li>
-          <li>Guest list review for address formatting, completeness &amp; potential mailing errors</li>
-          <li>Main invitation card — 5 × 7</li>
-          <li>RSVP card with QR code or wedding website — 3.5 × 5</li>
-          <li>Details card — 4 × 6</li>
-          <li>Outer mailing envelope</li>
-          <li>Flat digital printing</li>
-          <li>Premium cardstock with a smooth, softly textured finish</li>
-        </ul>
+            <ul>
+              <li>Custom design &amp; layout</li>
+              <li>Save the Date Information Questionnaire</li>
+              <li>Personalized styling to coordinate with your wedding aesthetic</li>
+              <li>Custom stationery styling direction throughout the design process</li>
+              <li>Guided proofing &amp; revision process</li>
+              <li>Guest list review for address formatting, completeness &amp; potential mailing errors</li>
+              <li>Printed Save the Date card — A7 (5 × 7)</li>
+              <li>Outer mailing envelope</li>
+              <li>Flat digital printing</li>
+              <li>Premium cardstock with a smooth, softly textured finish</li>
+              <li>Final print preparation &amp; quality review</li>
+              <li>Carefully packaged &amp; prepared</li>
+            </ul>
 
-        <span class="subheading">
-          Envelope Addressing Included
-        </span>
+            <span class="subheading">
+              Envelope Addressing Included
+            </span>
 
-        Guest and return address printing are included for a polished,
-        cohesive presentation.
+            Guest and return address printing are included for a polished,
+            cohesive presentation.
 
-        <span class="subheading">
-          Elevated Design Experience
-        </span>
+            <span class="subheading">
+              Finishing Detail
+            </span>
 
-        Additional design customization throughout the suite with
-        coordinated styling of finishing details, paper, and artwork
-        for a cohesive final presentation.
+            Envelope liner.
 
-        <span class="subheading">
-          Full-Service Assembly &amp; Addressing Included
-        </span>
+            <span class="subheading">
+              Assembly Not Included
+            </span>
 
-        This package includes professional suite assembly, guest and return
-        addressing, quality check, finishing detail application, and mailing
-        preparation services.
+            Save the Dates will arrive carefully packaged but unassembled.
+            Professional assembly may be added separately or is included
+            with the Heirloom Save the Dates package.
+          `,
 
-        Heirloom Suites arrive fully assembled and prepared for mailing.
+          note:
+            "Postage and mailing services are not included and may be added separately."
 
-        Envelope sealing is available only upon request. If envelope sealing
-        is requested, extra suites will remain unsealed.
+        },
 
-        <span class="subheading">
-          Upgraded Paper — Choose One
-        </span>
 
-        Felt stock, linen stock, or cotton stock.
+        /* HEIRLOOM SAVE THE DATES */
 
-        <span class="subheading">
-          Elevated Finishing Details — Choose Three
-        </span>
+        heirloom: {
 
-        Envelope liner, ribbon wrap, belly band, hand-applied wax seal,
-        or silk ribbon.
+          name: "Heirloom Save the Dates",
 
-        <span class="subheading">
-          Custom Design Element — Choose One
-        </span>
+          pricing: {
+            25: 700,
+            50: 950,
+            75: 1175,
+            100: 1400,
+            125: 1625,
+            150: 1850
+          },
 
-        Custom monogram or custom watercolor venue illustration.
-      `,
+          copy: `
+            <strong>Heirloom Save the Dates</strong>
 
-      note:
-        "Pricing reflects standard invitation sizing. Custom shapes, die cuts, specialty formats, postage, and mailing services are available at an additional cost."
+            <ul>
+              <li>Custom design &amp; layout</li>
+              <li>Save the Date Information Questionnaire</li>
+              <li>Personalized styling to coordinate with your wedding aesthetic</li>
+              <li>Custom stationery styling direction throughout the design process</li>
+              <li>Guided proofing &amp; revision process</li>
+              <li>Guest list review for address formatting, completeness &amp; potential mailing errors</li>
+              <li>Printed Save the Date card — A7 (5 × 7)</li>
+              <li>Outer mailing envelope</li>
+              <li>Flat digital printing</li>
+              <li>Premium cardstock with a smooth, softly textured finish</li>
+              <li>Final print preparation &amp; quality review</li>
+              <li>Carefully packaged &amp; prepared</li>
+            </ul>
+
+            <span class="subheading">
+              Envelope Addressing Included
+            </span>
+
+            Guest and return address printing are included for a polished,
+            cohesive presentation.
+
+            <span class="subheading">
+              Full-Service Assembly Included
+            </span>
+
+            Save the Dates will be professionally assembled, carefully
+            quality checked, and prepared for mailing. Envelopes will
+            remain unsealed.
+
+            <span class="subheading">
+              Added Feature
+            </span>
+
+            Back-side photo printing.
+
+            <span class="subheading">
+              Upgraded Paper — Choose One
+            </span>
+
+            Felt stock, linen stock, or cotton stock.
+
+            <span class="subheading">
+              Finishing Detail — Choose One
+            </span>
+
+            Envelope liner, ribbon detail, or belly band.
+
+            <span class="subheading">
+              Postage &amp; Mailing Not Included
+            </span>
+
+            Postage and mailing services are not included in this package
+            and may be added separately.
+          `,
+
+          note:
+            "Postage and mailing services are not included and may be added separately."
+
+        }
+
+      }
+
+    };
+
+
+    /* =====================================================
+       CALCULATOR FUNCTIONALITY
+    ===================================================== */
+
+    const packageOptions =
+      document.getElementById("package-options");
+
+    const packageDetails =
+      document.getElementById("package-details");
+
+    const quantityOptions =
+      document.getElementById("quantity-options");
+
+    const estimate =
+      document.getElementById("estimate");
+
+    const estimateNote =
+      document.getElementById("estimate-note");
+
+    const quantityNote =
+      document.getElementById("quantity-note");
+
+
+    function selectedCollection() {
+
+      return document
+        .querySelector('input[name="collection"]:checked')
+        .value;
 
     }
 
-  },
 
+    function selectedPackage() {
 
-  /* =====================================================
-     SAVE THE DATES
-  ===================================================== */
-
-  saveDates: {
-
-    /* ESSENTIAL SAVE THE DATES */
-
-    essential: {
-
-      name: "Essential Save the Dates",
-
-      pricing: {
-        25: 425,
-        50: 575,
-        75: 725,
-        100: 850,
-        125: 975,
-        150: 1100
-      },
-
-      copy: `
-        <strong>Essential Save the Dates</strong><br>
-
-        <ul>
-          <li>Custom design &amp; layout</li>
-          <li>Save the Date Information Questionnaire</li>
-          <li>Personalized styling to coordinate with your wedding aesthetic</li>
-          <li>Custom stationery styling direction throughout the design process</li>
-          <li>Guided proofing &amp; revision process</li>
-          <li>Printed Save the Date card — A7 (5 × 7)</li>
-          <li>Blank outer mailing envelope</li>
-          <li>Flat digital printing</li>
-          <li>Premium cardstock with a smooth, softly textured finish</li>
-          <li>Final print preparation &amp; quality review</li>
-          <li>Carefully packaged &amp; prepared</li>
-        </ul>
-
-        <span class="subheading">
-          Envelope Addressing Not Included
-        </span>
-
-        Guest and return address printing are not included in this package.
-        Envelopes will arrive blank and ready for you to address.
-
-        <span class="subheading">
-          Assembly Not Included
-        </span>
-
-        Save the Dates will arrive carefully packaged but unassembled.
-        Professional assembly may be added separately or is included with
-        the Heirloom Save the Dates package.
-      `,
-
-      note:
-        "Postage and mailing services are not included and may be added separately."
-
-    },
-
-
-    /* SIGNATURE SAVE THE DATES */
-
-    signature: {
-
-      name: "Signature Save the Dates",
-
-      pricing: {
-        25: 550,
-        50: 750,
-        75: 925,
-        100: 1100,
-        125: 1275,
-        150: 1450
-      },
-
-      copy: `
-        <strong>Signature Save the Dates</strong><br>
-
-        <ul>
-          <li>Custom design &amp; layout</li>
-          <li>Save the Date Information Questionnaire</li>
-          <li>Personalized styling to coordinate with your wedding aesthetic</li>
-          <li>Custom stationery styling direction throughout the design process</li>
-          <li>Guided proofing &amp; revision process</li>
-          <li>Guest list review for address formatting, completeness &amp; potential mailing errors</li>
-          <li>Printed Save the Date card — A7 (5 × 7)</li>
-          <li>Outer mailing envelope</li>
-          <li>Flat digital printing</li>
-          <li>Premium cardstock with a smooth, softly textured finish</li>
-          <li>Final print preparation &amp; quality review</li>
-          <li>Carefully packaged &amp; prepared</li>
-        </ul>
-
-        <span class="subheading">
-          Envelope Addressing Included
-        </span>
-
-        Guest and return address printing are included for a polished,
-        cohesive presentation.
-
-        <span class="subheading">
-          Finishing Detail
-        </span>
-
-        Envelope liner.
-
-        <span class="subheading">
-          Assembly Not Included
-        </span>
-
-        Save the Dates will arrive carefully packaged but unassembled.
-        Professional assembly may be added separately or is included with
-        the Heirloom Save the Dates package.
-      `,
-
-      note:
-        "Postage and mailing services are not included and may be added separately."
-
-    },
-
-
-    /* HEIRLOOM SAVE THE DATES */
-
-    heirloom: {
-
-      name: "Heirloom Save the Dates",
-
-      pricing: {
-        25: 700,
-        50: 950,
-        75: 1175,
-        100: 1400,
-        125: 1625,
-        150: 1850
-      },
-
-      copy: `
-        <strong>Heirloom Save the Dates</strong><br>
-
-        <ul>
-          <li>Custom design &amp; layout</li>
-          <li>Save the Date Information Questionnaire</li>
-          <li>Personalized styling to coordinate with your wedding aesthetic</li>
-          <li>Custom stationery styling direction throughout the design process</li>
-          <li>Guided proofing &amp; revision process</li>
-          <li>Guest list review for address formatting, completeness &amp; potential mailing errors</li>
-          <li>Printed Save the Date card — A7 (5 × 7)</li>
-          <li>Outer mailing envelope</li>
-          <li>Flat digital printing</li>
-          <li>Premium cardstock with a smooth, softly textured finish</li>
-          <li>Final print preparation &amp; quality review</li>
-          <li>Carefully packaged &amp; prepared</li>
-        </ul>
-
-        <span class="subheading">
-          Envelope Addressing Included
-        </span>
-
-        Guest and return address printing are included for a polished,
-        cohesive presentation.
-
-        <span class="subheading">
-          Full-Service Assembly Included
-        </span>
-
-        Save the Dates will be professionally assembled, carefully quality
-        checked, and prepared for mailing. Envelopes will remain unsealed.
-
-        <span class="subheading">
-          Added Feature
-        </span>
-
-        Back-side photo printing.
-
-        <span class="subheading">
-          Upgraded Paper — Choose One
-        </span>
-
-        Felt stock, linen stock, or cotton stock.
-
-        <span class="subheading">
-          Finishing Detail — Choose One
-        </span>
-
-        Envelope liner, ribbon detail, or belly band.
-
-        <span class="subheading">
-          Postage &amp; Mailing Not Included
-        </span>
-
-        Postage and mailing services are not included in this package
-        and may be added separately.
-      `,
-
-      note:
-        "Postage and mailing services are not included and may be added separately."
+      return document
+        .querySelector('input[name="package"]:checked')
+        ?.value || "essential";
 
     }
 
-  }
 
-};
+    function renderPackages() {
 
+      const collection =
+        selectedCollection();
 
-/* =====================================================
-   CALCULATOR FUNCTIONALITY
-===================================================== */
+      packageOptions.innerHTML =
+        Object.entries(packages[collection])
 
-const packageOptions =
-  document.getElementById("package-options");
+          .map(([key, value], index) => `
 
-const packageDetails =
-  document.getElementById("package-details");
+            <div class="option">
 
-const quantityOptions =
-  document.getElementById("quantity-options");
+              <input
+                type="radio"
+                name="package"
+                id="p-${key}"
+                value="${key}"
+                ${index === 0 ? "checked" : ""}
+              >
 
-const estimate =
-  document.getElementById("estimate");
+              <label for="p-${key}">
+                ${value.name}
+              </label>
 
-const estimateNote =
-  document.getElementById("estimate-note");
+            </div>
 
-const quantityNote =
-  document.getElementById("quantity-note");
+          `)
 
+          .join("");
 
-function selectedCollection() {
 
-  return document
-    .querySelector('input[name="collection"]:checked')
-    .value;
+      packageOptions
+        .querySelectorAll('input[name="package"]')
 
-}
+        .forEach(input => {
 
+          input.addEventListener(
+            "change",
+            renderQuantities
+          );
 
-function selectedPackage() {
+        });
 
-  return document
-    .querySelector('input[name="package"]:checked')
-    ?.value || "essential";
 
-}
+      renderQuantities();
 
+    }
 
-function renderPackages() {
 
-  const collection =
-    selectedCollection();
+    function renderQuantities() {
 
-  packageOptions.innerHTML =
-    Object.entries(packages[collection])
+      const collection =
+        selectedCollection();
 
-      .map(([key, value], index) => `
+      const selected =
+        packages[collection][selectedPackage()];
 
-        <div class="option">
+      const quantities =
+        selected.pricing;
 
-          <input
-            type="radio"
-            name="package"
-            id="p-${key}"
-            value="${key}"
-            ${index === 0 ? "checked" : ""}
-          >
 
-          <label for="p-${key}">
-            ${value.name}
-          </label>
+      packageDetails.innerHTML =
+        selected.copy;
 
-        </div>
+      estimateNote.innerText =
+        selected.note;
 
-      `)
 
-      .join("");
+      if (collection === "invitations") {
 
+        quantityNote.innerText =
+          "Invitation quantities should be based on households rather than total guest count. I recommend ordering a few extras for keepsakes, photography, and last-minute additions.";
 
-  packageOptions
-    .querySelectorAll('input[name="package"]')
+      } else {
 
-    .forEach(input => {
+        quantityNote.innerText =
+          "Save the Date quantities should be based on households rather than total guest count. I recommend ordering a few extras for keepsakes, photography, and last-minute additions.";
 
-      input.addEventListener(
-        "change",
-        renderQuantities
-      );
+      }
 
-    });
 
+      const preferredQuantity =
+        quantities[100]
+          ? 100
+          : Number(Object.keys(quantities)[0]);
 
-  renderQuantities();
 
-}
+      quantityOptions.innerHTML =
+        Object.entries(quantities)
 
+          .map(([quantity, price]) => `
 
-function renderQuantities() {
+            <div class="option">
 
-  const collection =
-    selectedCollection();
+              <input
+                type="radio"
+                name="quantity"
+                id="q${quantity}"
+                value="${price}"
+                ${Number(quantity) === preferredQuantity ? "checked" : ""}
+              >
 
-  const selected =
-    packages[collection][selectedPackage()];
+              <label for="q${quantity}">
 
-  const quantities =
-    selected.pricing;
+                ${quantity}
+                ${collection === "invitations"
+                  ? "Suites"
+                  : "Save the Dates"}
 
+              </label>
 
-  packageDetails.innerHTML =
-    selected.copy;
+            </div>
 
-  estimateNote.innerText =
-    selected.note;
+          `)
 
+          .join("");
 
-  if (collection === "invitations") {
 
-    quantityNote.innerText =
-      "Invitation quantities should be based on households rather than total guest count. I recommend ordering a few extras for keepsakes, photography, and last-minute additions.";
+      quantityOptions
+        .querySelectorAll('input[name="quantity"]')
 
-  } else {
+        .forEach(input => {
 
-    quantityNote.innerText =
-      "Save the Date quantities should be based on households rather than total guest count. I recommend ordering a few extras for keepsakes, photography, and last-minute additions.";
+          input.addEventListener(
+            "change",
+            calculateEstimate
+          );
 
-  }
+        });
 
 
-  const preferredQuantity =
-    quantities[100]
-      ? 100
-      : Number(Object.keys(quantities)[0]);
+      calculateEstimate();
 
+    }
 
-  quantityOptions.innerHTML =
-    Object.entries(quantities)
 
-      .map(([quantity, price]) => `
+    function calculateEstimate() {
 
-        <div class="option">
+      const total =
+        Number(
+          document
+            .querySelector('input[name="quantity"]:checked')
+            ?.value || 0
+        );
 
-          <input
-            type="radio"
-            name="quantity"
-            id="q${quantity}"
-            value="${price}"
-            ${Number(quantity) === preferredQuantity ? "checked" : ""}
-          >
 
-          <label for="q${quantity}">
+      estimate.innerText =
+        `$${total.toLocaleString()}`;
 
-            ${quantity}
-            ${collection === "invitations"
-              ? "Suites"
-              : "Save the Dates"}
+    }
 
-          </label>
 
-        </div>
+    document
+      .querySelectorAll('input[name="collection"]')
 
-      `)
+      .forEach(input => {
 
-      .join("");
+        input.addEventListener(
+          "change",
+          renderPackages
+        );
 
+      });
 
-  quantityOptions
-    .querySelectorAll('input[name="quantity"]')
 
-    .forEach(input => {
+    renderPackages();
 
-      input.addEventListener(
-        "change",
-        calculateEstimate
-      );
-
-    });
-
-
-  calculateEstimate();
-
-}
-
-
-function calculateEstimate() {
-
-  const total =
-    Number(
-      document
-        .querySelector('input[name="quantity"]:checked')
-        ?.value || 0
-    );
-
-
-  estimate.innerText =
-    `$${total.toLocaleString()}`;
-
-}
-
-
-document
-  .querySelectorAll('input[name="collection"]')
-
-  .forEach(input => {
-
-    input.addEventListener(
-      "change",
-      renderPackages
-    );
-
-  });
-
-
-renderPackages();
-
-</script>
+  </script>
 
 </body>
 </html>
